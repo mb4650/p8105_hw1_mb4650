@@ -1,0 +1,47 @@
+---
+title: "Homework 1"
+author: Maya Bunyan
+output: github_document
+---
+
+This is my solution to Homework 1! 
+
+```{r}
+library(tidyverse)
+```
+
+## Problem 1
+
+Create a data frame comprised on the listed elements.
+
+```{r}
+problem1_df =
+  tibble(
+    samp = rnorm(10),
+    samp_gt_zero = samp > 0,
+    char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    fac_vec = factor(c("low", "low", "low", "med", "med", "med", "med", "high", "high", "high"))
+  )
+```
+
+Take mean of each variable in the data frame problem1_df.
+
+```{r}
+mean(pull(problem1_df, samp))
+mean(pull(problem1_df, samp_gt_zero))
+mean(pull(problem1_df, char_vec))
+mean(pull(problem1_df, fac_vec))
+```
+
+I am able to take the mean of numbers and the logical vector, but cannot take the mean for the character and factor vectors.
+
+```{r}
+as.numeric(pull(problem1_df, samp))
+as.numeric(pull(problem1_df, samp_gt_zero))
+as.numeric(pull(problem1_df, char_vec))
+as.numeric(pull(problem1_df, fac_vec))
+```
+
+
+
+## Problem 2
