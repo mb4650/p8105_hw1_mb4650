@@ -6,7 +6,7 @@ output: github_document
 
 This is my solution to Homework 1! 
 
-```{r}
+```{r load_packages}
 library(tidyverse)
 ```
 
@@ -14,7 +14,7 @@ library(tidyverse)
 
 Create a data frame comprised on the listed elements.
 
-```{r}
+```{r create_df}
 problem1_df =
   tibble(
     samp = rnorm(10),
@@ -26,7 +26,7 @@ problem1_df =
 
 Take mean of each variable in the data frame problem1_df.
 
-```{r}
+```{r get_means}
 mean(pull(problem1_df, samp))
 mean(pull(problem1_df, samp_gt_zero))
 mean(pull(problem1_df, char_vec))
@@ -35,13 +35,25 @@ mean(pull(problem1_df, fac_vec))
 
 I am able to take the mean of numbers and the logical vector, but cannot take the mean for the character and factor vectors.
 
-```{r}
+Convert the variables in the data frame problem1_df to numeric.
+
+```{r make_numeric, results='hide', warning=FALSE}
 as.numeric(pull(problem1_df, samp))
 as.numeric(pull(problem1_df, samp_gt_zero))
 as.numeric(pull(problem1_df, char_vec))
 as.numeric(pull(problem1_df, fac_vec))
 ```
 
+The random sample and logical vector are able to be converted into numeric format, but the character and factor vector are not able to be converted into the numeric format. This is because the random sample is already numeric and logical vectors are able to be changed into numeric values. R is not able to do the same for character and factor vectors, so they are changed to NA. This explains why we were able to take the mean for the random sample and logical vector, but not the character and factor vectors.
+
+
+Covert logical vector to specified vector type and multiply by random sample result.
+
+```{r convert_multiply}
+as.numeric(pull(problem1_df, samp_gt_zero)) * pull(problem1_df, samp)
+as.factor(pull(problem1_df, samp_gt_zero)) * pull(problem1_df, samp)
+as.numeric(as.factor(pull(problem1_df, samp_gt_zero))) * pull(problem1_df, samp)
+```
 
 
 ## Problem 2
