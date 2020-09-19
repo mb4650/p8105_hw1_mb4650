@@ -8,7 +8,6 @@ This is my solution to Homework 1!
 
 ```{r load_packages}
 library(tidyverse)
-library(ggplot2)
 ```
 
 ## Problem 1
@@ -25,7 +24,7 @@ problem1_df =
   )
 ```
 
-Take mean of each variable in the data frame problem1_df.
+Take the mean of each variable in the data frame problem1_df.
 
 ```{r get_means}
 mean(pull(problem1_df, samp))
@@ -47,11 +46,10 @@ as.numeric(pull(problem1_df, char_vec))
 as.numeric(pull(problem1_df, fac_vec))
 ```
 
-The random sample and logical vector are able to be converted into numeric format, but the character and factor vector are not able to be converted into the numeric format. This is because the random sample is already numeric and logical vectors are able to be changed into numeric values. R is not able to do the same for character and factor vectors, so they are changed to NA. This explains why we were able to take the mean for the random sample and logical vector, but not the character and factor vectors.
+The logical and factor vectors are able to be converted into numeric format, but the character vector is not. This is because logical vectors are stored in the back-end as numeric values. This explains why we were able to take the mean for the logical vector. We can also force R to convert a factor vector into numeric, which is why it is converted to numeric here. However, it does not usually do that, so that is why we were not able to get a mean for it previously. We cannot force R to convert character vectors to numeric, so the values are changed to NA and, thus, a mean was not able to be calculated. 
 
 
-
-Covert logical vector to specified vector type and multiply by random sample result.
+Covert the logical vector to specified vector type and multiply by random sample result.
 
 ```{r convert_multiply}
 as.numeric(pull(problem1_df, samp_gt_zero)) * pull(problem1_df, samp)
@@ -68,11 +66,11 @@ Load penguins dataset and write short description of the data using inline code.
 data("penguins", package = "palmerpenguins")
 ```
 
-The penguins dataset has `r ncol(penguins)` variables and `r nrow(penguins)` data points. It focuses on the penguin species `r levels(pull(penguins, species))`, who live on `r levels(pull(penguins, island))` islands. Other variables in the dataset include, `r names(penguins)[3:8] `. The penguins in the sample have an average bill length of `r mean(pull(penguins, bill_length_mm), na.rm = T)` mm, an average bill depth of `r mean(pull(penguins, bill_depth_mm), na.rm = T)` mm, an average flipper length of `r mean(pull(penguins, flipper_length_mm), na.rm = T)` mm, and an average body mass of `r mean(pull(penguins, body_mass_g), na.rm = T)` g. 
+The penguins dataset has `r ncol(penguins)` variables and `r nrow(penguins)` data points. It focuses on `r nlevels(pull(penguins, species))` penguin species, `r levels(pull(penguins, species))`, on `r nlevels(pull(penguins, island))` islands, `r levels(pull(penguins, island))`. Other variables in the dataset include, `r names(penguins)[3:8] `. The penguins in the sample have an average bill length of `r mean(pull(penguins, bill_length_mm), na.rm = T)` mm, an average bill depth of `r mean(pull(penguins, bill_depth_mm), na.rm = T)` mm, an average flipper length of `r mean(pull(penguins, flipper_length_mm), na.rm = T)` mm, and an average body mass of `r mean(pull(penguins, body_mass_g), na.rm = T)` g. 
 
 
 
-Create scatterplot of flipper length versus bill length with different colored points to denote different species, and export.
+Create a scatterplot of flipper length versus bill length with different colored points to denote different species, and export.
 
 ```{r flipper_bill_scatterplot}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
